@@ -1,4 +1,4 @@
-import { PrismaClient } from './generated/prisma_client/client.js';
+import { PrismaClient } from './generated/prisma_client/client.ts';
 import { deleteAllTasksRepo } from '../repositories/taskRepository.js';
 import { createTreeRepo, updateTreeRepo, deleteTreeRepo, getTreeRepo, getAllTreeByFamilyIdRepo } from '../repositories/treeRepository.js';
 import { TreeCreationError, TreeValidationError } from '../utils/errors.js'; 

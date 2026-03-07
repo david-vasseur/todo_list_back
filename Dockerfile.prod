@@ -9,18 +9,17 @@ WORKDIR /app
 # 3️⃣ Copier uniquement package.json / package-lock.json pour installer les dépendances
 COPY package*.json ./
 
-# 4️⃣ Installer les dépendances
+# 4️⃣ Installer les dépendances (prod)
 RUN npm install
 
-# 5️⃣ Copier le code source et le dossier Prisma
+# 5️⃣ Copier le reste du code source
 COPY prisma ./prisma
 COPY . .
 
-# 6️⃣ Déployer les migrations et générer le client Prisma
+RUN npx prisma generate
 
-
-# 7️⃣ Exposer le port interne du backend
+# 6️⃣ Exposer le port interne du backend
 EXPOSE 8080
 
-# 8️⃣ Commande pour lancer le serveur
+# 7️⃣ Commande pour lancer le serveur
 CMD ["node", "server.js"]
