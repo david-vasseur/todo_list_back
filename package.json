@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "@prisma/client": "^6.19.2",
+    "@prisma/client": "^7.4.2",
     "bcrypt": "^6.0.0",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
@@ -14,7 +14,7 @@
     "uuid": "^10.0.0"
   },
   "devDependencies": {    
-    "prisma": "^6.19.2",
+    "prisma": "^7.4.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3"
   },
