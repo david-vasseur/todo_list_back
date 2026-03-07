@@ -47,12 +47,7 @@ app.use(express.json());
 
 // CORS //
 
-app.use(cors({
-    origin: ['https://ez-task.fr', 'https://www.ez-task.fr'],
-    credentials: true,
-    allowedHeaders: ['Content-Type', 'Authorization', 'X-CSRF-Token'],
-    methods: ['GET', 'POST', 'OPTIONS', 'DELETE', 'PUT']
-}));
+app.use(cors());
 
 app.options('*', app);
 
