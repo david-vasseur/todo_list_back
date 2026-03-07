@@ -12,6 +12,8 @@ COPY package*.json ./
 # 4️⃣ Installer les dépendances (prod)
 RUN npm install --production
 
+RUN npx prisma generate
+
 # 5️⃣ Copier le reste du code source
 COPY . .
 
