@@ -1,4 +1,4 @@
-import { PrismaClient } from './generated/prisma_client/client.ts';
+import { PrismaClient } from '../generated/prisma_client/client.ts';
 import { createTaskControl } from "../controllers/taskController.js";
 import { createTask, deleteTask, updateTask } from "../services/taskService.js";
 

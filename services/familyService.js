@@ -1,4 +1,4 @@
-import { PrismaClient } from './generated/prisma_client/client.ts';
+import { PrismaClient } from '../generated/prisma_client/client.ts';
 import { createFamilyRepo, getHashRepo } from "../repositories/familyRepository.js";
 import { addFamilyRepo } from "../repositories/userRepository.js";
 // utilisation de UUID pour generer aleatoirement un code pour la famille //
