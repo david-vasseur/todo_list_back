@@ -1,4 +1,4 @@
-const { PrismaClient } = require('./generated/prisma_client/client');
+import { PrismaClient } from './generated/prisma_client/client.js';
 import { createTaskControl } from "../controllers/taskController.js";
 import { createTask, deleteTask, updateTask } from "../services/taskService.js";
 

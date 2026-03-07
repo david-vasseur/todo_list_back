@@ -1,4 +1,4 @@
-const { PrismaClient } = require('./generated/prisma_client/client');
+import { PrismaClient } from './generated/prisma_client/client.js';
 import { createFamilyRepo, getHashRepo } from "../repositories/familyRepository.js";
 import { addFamilyRepo } from "../repositories/userRepository.js";
 // utilisation de UUID pour generer aleatoirement un code pour la famille //
