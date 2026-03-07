@@ -10,7 +10,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # 4️⃣ Installer les dépendances (prod)
-RUN npm install --production
+RUN npm install
 
 # 5️⃣ Copier le reste du code source
 COPY . .
