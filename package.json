@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "db:deploy": "npx prisma migrate deploy && npx prisma generate"
+  },
   "dependencies": {
     "@prisma/client": "^7.4.2",
     "bcrypt": "^6.0.0",
