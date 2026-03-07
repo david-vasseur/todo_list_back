@@ -1,4 +1,5 @@
-import { PrismaClient } from "@prisma/client";
+import pkg from '@prisma/client';
+const { PrismaClient } = pkg;
 import { createFamilyRepo, getHashRepo } from "../repositories/familyRepository.js";
 import { addFamilyRepo } from "../repositories/userRepository.js";
 // utilisation de UUID pour generer aleatoirement un code pour la famille //
