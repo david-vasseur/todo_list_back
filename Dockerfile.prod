@@ -17,7 +17,7 @@ COPY prisma ./prisma
 COPY . .
 
 # 6️⃣ Déployer les migrations et générer le client Prisma
-RUN npm run db:deploy
+
 
 # 7️⃣ Exposer le port interne du backend
 EXPOSE 8080
