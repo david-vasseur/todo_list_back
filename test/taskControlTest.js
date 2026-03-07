@@ -1,5 +1,4 @@
-import pkg from '@prisma/client';
-const { PrismaClient } = pkg;
+const { PrismaClient } = require('./generated/prisma_client/client');
 import { createTaskControl } from "../controllers/taskController.js";
 import { createTask, deleteTask, updateTask } from "../services/taskService.js";
 

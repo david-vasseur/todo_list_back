@@ -1,5 +1,4 @@
-import pkg from '@prisma/client';
-const { PrismaClient } = pkg;
+const { PrismaClient } = require('./generated/prisma_client/client');
 import { deleteAllTasksRepo } from '../repositories/taskRepository.js';
 import { createTreeRepo, updateTreeRepo, deleteTreeRepo, getTreeRepo, getAllTreeByFamilyIdRepo } from '../repositories/treeRepository.js';
 import { TreeCreationError, TreeValidationError } from '../utils/errors.js'; 

@@ -1,5 +1,4 @@
-import pkg from '@prisma/client';
-const { PrismaClient } = pkg;
+const { PrismaClient } = require('./generated/prisma_client/client');
 
 const prisma = new PrismaClient();
 
