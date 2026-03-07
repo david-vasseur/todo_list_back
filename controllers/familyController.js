@@ -2,10 +2,10 @@ import { createFamily, getHash } from "../services/familyService.js";
 import { updateFamily } from "../services/userService.js";
 
 export const createFamilyControl = async (req, res) => {
-    const { id, name } = req.body;
+    const { name } = req.body;
 
     try {
-        const result = await createFamily(id, name);
+        const result = await createFamily(name);
         res.status(201).json({ message: "Votre famille a bien été créé.", data: result })
     } catch (error) {
         return res.status(500).json({ message: "Une erreur est survenue." });

@@ -6,7 +6,7 @@ import { EmailAlreadyUsedError, PasswordUpdateError, RegisterError } from '../ut
 
 
 export const registerUser = async (req, res) => {
-    const { email, password, name, firstName, familyId = null } = req.body;
+    const { email, password, name, firstName, familyId = null, famillyName } = req.body;
 
     try {
         const user = await createUser(email, password, name, firstName, familyId);
@@ -48,9 +48,17 @@ export const authenticateUser = async (req, res) => {
             { expiresIn: process.env.JWT_EXPIRES_IN }
         );
 
+        res.cookie('token', token, {
+            httpOnly: true,
+            sameSite: 'lax'
+        });
+
+        const csrfToken = req.csrfToken();
+
         res.status(200).json({
             message: "Connexion réussie",
             token: token,
+            csrfToken: csrfToken,
             user: {
                 id: user.id,
                 firstName: user.firstName,

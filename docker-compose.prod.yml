@@ -1,0 +1,16 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+    container_name: ez-task-backend
+    restart: unless-stopped
+    networks:
+      - mysql-network       
+      - eztask-network
+
+networks:
+  eztask-network:
+    external: true
+  mysql-network:
+    external: true

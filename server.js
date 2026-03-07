@@ -5,10 +5,12 @@ import treeRoutes from './routes/treeRoutes.js';
 import taskRoutes from './routes/taskRoutes.js';
 import familyRoutes from './routes/familyRoutes.js';
 import csrfRoutes from './routes/csrfRoutes.js';
-import { sessionMiddleware } from './middleware/sessionMiddleware.js';
+import session from 'express-session';
+import csurf from 'csurf';
 import cors from 'cors';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
+import cookieParser from 'cookie-parser';
 
 // LECTURE DANS TOUTE L'APPLICATION DU .ENV //
 
@@ -20,37 +22,78 @@ const PORT = 8080;
 const app = express();
 const usersOnline = {};
 
-// CREATION D'UN SERVEUR HTTP PLUS FLEXIBLE POUR GERE WEBSOCKET //
+// TRUST PROXY POUR LES X-FORWARD NGINX //
+
+app.set('trust proxy', 1);
+
+// GESTION DES COOKIES //
+
+app.use(cookieParser());
+
+// CREATION D'UN SERVEUR HTTP PLUS FLEXIBLE POUR GERER WEBSOCKET //
 
 const httpServer = createServer(app);
-
 const io = new Server(httpServer, {
     cors: {
-        origin: 'http://localhost:3000', 
-        methods: ['GET', 'POST', 'DELETE']
+        origin: ['https://ez-task.fr', 'https://www.ez-task.fr'],
+        credentials: true,
+        methods: ['GET', 'POST', 'DELETE', 'PUT']
     }
 });
 
+// API BASE SUR DU FULL JSON //
+
 app.use(express.json());
-
-// MIDDLEWARE DE SESSION //
-
-app.use(sessionMiddleware);
 
 // CORS //
 
 app.use(cors({
-    origin: 'http://localhost:3000',
-    credentials: true
+    origin: ['https://ez-task.fr', 'https://www.ez-task.fr'],
+    credentials: true,
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-CSRF-Token'],
+    methods: ['GET', 'POST', 'OPTIONS', 'DELETE', 'PUT']
 }));
+
+app.options('*', app);
+
+// MIDDLEWARE DE SESSION //
+
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        secure: true,
+        httpOnly:true,
+        sameSite: 'none',
+        domain: '.ez-task.fr'
+    }
+}));
+
+// MIDDLEWARE CSRF //
+
+const csrfProtection = csurf({
+    cookie: false,
+    ignoreMethods: ['OPTIONS', 'GET']
+});
+
+app.use(csrfProtection);
+
+app.use((err, req, res, next) => {
+    if (err.code === 'EBADCSRFTOKEN') {
+        return res.status(403).json({ message: 'Token CSRF invalide ou manquant.' });
+    }
+
+    next(err);
+});
 
 // ROUTES //
 
+app.use('/api/csrfToken', csrfRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/tree', treeRoutes);
 app.use('/api/task', taskRoutes);
 app.use('/api/family', familyRoutes);
-app.use('/csrfToken', csrfRoutes);
 
 // GESTION CONNEXION SOCKET.IO //
 
@@ -68,7 +111,7 @@ io.on('connection', (socket) => {
 // LANCEMENT //
 
 httpServer.listen(PORT, () => {
-    console.log(`le serveur est lancé sur http://localhost:${PORT}`); 
+    console.log(`le serveur est lancé sur le port ${PORT}`);
 });
 
 export { io };

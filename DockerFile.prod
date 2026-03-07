@@ -1,0 +1,22 @@
+# Dockerfile
+
+# 1️⃣ Base image Node.js légère
+FROM node:22-bullseye
+
+# 2️⃣ Dossier de travail dans le container
+WORKDIR /app
+
+# 3️⃣ Copier uniquement package.json / package-lock.json pour installer les dépendances
+COPY package*.json ./
+
+# 4️⃣ Installer les dépendances (prod)
+RUN npm install --production
+
+# 5️⃣ Copier le reste du code source
+COPY . .
+
+# 6️⃣ Exposer le port interne du backend
+EXPOSE 8080
+
+# 7️⃣ Commande pour lancer le serveur
+CMD ["node", "server.js"]
