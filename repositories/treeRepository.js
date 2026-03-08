@@ -1,4 +1,4 @@
-import prisma from "../lib/prisma";
+import prisma from "../lib/prisma.js";
 
 export const createTreeRepo = async (data) => {
     return await prisma.tree.create({ data });
