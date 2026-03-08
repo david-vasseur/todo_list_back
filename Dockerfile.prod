@@ -16,6 +16,8 @@ RUN npm install
 COPY prisma ./prisma
 COPY . .
 
+RUN npx prisma generate
+
 # 6️⃣ Exposer le port interne du backend
 EXPOSE 8080
 
