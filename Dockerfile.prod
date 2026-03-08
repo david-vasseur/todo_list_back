@@ -22,4 +22,4 @@ RUN npx prisma generate
 EXPOSE 8080
 
 # 7️⃣ Commande pour lancer le serveur
-CMD ["node", "server.js"]
+CMD ["sh", "-c", "npx prisma migrate deploy && node server.js"]
