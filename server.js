@@ -4,9 +4,7 @@ import userRoutes from './routes/userRoutes.js';
 import treeRoutes from './routes/treeRoutes.js';
 import taskRoutes from './routes/taskRoutes.js';
 import familyRoutes from './routes/familyRoutes.js';
-import csrfRoutes from './routes/csrfRoutes.js';
 import session from 'express-session';
-import csurf from 'csurf';
 import cors from 'cors';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
@@ -35,7 +33,7 @@ app.use(cookieParser());
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
     cors: {
-        origin: ['https://ez-task.fr', 'https://www.ez-task.fr'],
+        origin: ['http://ez-task:4002'],
         credentials: true,
         methods: ['GET', 'POST', 'DELETE', 'PUT']
     }
@@ -65,26 +63,9 @@ app.use(session({
     }
 }));
 
-// MIDDLEWARE CSRF //
-
-const csrfProtection = csurf({
-    cookie: false,
-    ignoreMethods: ['OPTIONS', 'GET']
-});
-
-app.use(csrfProtection);
-
-app.use((err, req, res, next) => {
-    if (err.code === 'EBADCSRFTOKEN') {
-        return res.status(403).json({ message: 'Token CSRF invalide ou manquant.' });
-    }
-
-    next(err);
-});
-
 // ROUTES //
 
-app.use('/api/csrfToken', csrfRoutes);
+
 app.use('/api/users', userRoutes);
 app.use('/api/tree', treeRoutes);
 app.use('/api/task', taskRoutes);

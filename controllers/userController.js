@@ -53,12 +53,9 @@ export const authenticateUser = async (req, res) => {
             sameSite: 'lax'
         });
 
-        const csrfToken = req.csrfToken();
-
         res.status(200).json({
             message: "Connexion réussie",
             token: token,
-            csrfToken: csrfToken,
             user: {
                 id: user.id,
                 firstName: user.firstName,
