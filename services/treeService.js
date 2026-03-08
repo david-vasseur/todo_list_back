@@ -3,7 +3,7 @@ import { deleteAllTasksRepo } from '../repositories/taskRepository.js';
 import { createTreeRepo, updateTreeRepo, deleteTreeRepo, getTreeRepo, getAllTreeByFamilyIdRepo } from '../repositories/treeRepository.js';
 import { TreeCreationError, TreeValidationError } from '../utils/errors.js'; 
 
-const prisma = new PrismaClient()
+const prisma = new PrismaClient({accelerateUrl: process.env.DATABASE_URL})
 
 export const createTree = async (name, familyId) => {
     try {

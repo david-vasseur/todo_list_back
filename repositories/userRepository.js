@@ -1,6 +1,6 @@
 import { PrismaClient } from '../generated/prisma_client/client.ts';
 
-const prisma = new PrismaClient();
+const prisma = new PrismaClient({accelerateUrl: process.env.DATABASE_URL});
 
 export const createUser = async (data) => {
     return await prisma.user.create({ data });

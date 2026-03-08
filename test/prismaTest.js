@@ -1,6 +1,6 @@
 import { PrismaClient } from '../generated/prisma_client/client.ts';
 
-const prisma = new PrismaClient();
+const prisma = new PrismaClient({accelerateUrl: process.env.DATABASE_URL});
 
 const id = process.argv[2];
 
