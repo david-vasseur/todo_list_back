@@ -1,8 +1,7 @@
-import { PrismaClient } from '../generated/prisma_client/client.ts';
 import { createTaskControl } from "../controllers/taskController.js";
+import prisma from "../lib/prisma.js";
 import { createTask, deleteTask, updateTask } from "../services/taskService.js";
 
-const prisma = new PrismaClient({accelerateUrl: process.env.DATABASE_URL});
 
 const id = parseInt(process.argv[2]);
 const content = process.argv[3];

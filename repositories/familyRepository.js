@@ -1,6 +1,5 @@
-import { PrismaClient } from '../generated/prisma_client/client.ts';
+import prisma from "../lib/prisma";
 
-const prisma = new PrismaClient({accelerateUrl: process.env.DATABASE_URL});
 
 export const createFamilyRepo = async (data) => {
     return await prisma.family.create({ data });

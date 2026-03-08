@@ -1,10 +1,10 @@
-import { PrismaClient } from '../generated/prisma_client/client.ts';
+import prisma from "../lib/prisma.js";
 import { createFamilyRepo, getHashRepo } from "../repositories/familyRepository.js";
 import { addFamilyRepo } from "../repositories/userRepository.js";
 // utilisation de UUID pour generer aleatoirement un code pour la famille //
 import { v4 as uuidv4 } from 'uuid';
 
-const prisma = new PrismaClient({accelerateUrl: process.env.DATABASE_URL});
+
 
 export const createFamily = async (id, name) => {
     const hashFamily = uuidv4();

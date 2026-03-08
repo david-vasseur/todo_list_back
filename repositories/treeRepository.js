@@ -1,6 +1,4 @@
-import { PrismaClient } from '../generated/prisma_client/client.ts';
-
-const prisma = new PrismaClient({accelerateUrl: process.env.DATABASE_URL});
+import prisma from "../lib/prisma";
 
 export const createTreeRepo = async (data) => {
     return await prisma.tree.create({ data });
